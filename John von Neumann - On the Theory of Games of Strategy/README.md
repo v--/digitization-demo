@@ -24,8 +24,7 @@ Other auxiliary programs are of course necessary. The ones listed below have bee
 There is a "source directory" and a "temporary working directory".
 
 The name of the source directory is used as follows:
-* It is used as a name in the metadata of the PDF document.
-* It is also used for the output file name ([`John von Neumann - On the Theory of Games of Strategy.pdf`](<./John von Neumann - On the Theory of Games of Strategy.pdf>)).
+* It is used as a name for the output file name ([`John von Neumann - On the Theory of Games of Strategy.pdf`](<./John von Neumann - On the Theory of Games of Strategy.pdf>)).
 * Its hash is used for the path for the temporary directory (`/var/tmp/digitization/1e352581`).
 
 The files in the temporary directory are preserved so that we do not have to start over if something is off in the result. The intermediate files can be removed via `make clean-tmp`.

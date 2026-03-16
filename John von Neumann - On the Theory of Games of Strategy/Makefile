@@ -42,7 +42,8 @@ $(if $(MISSING_DEPS),$(error Missing executables: $(MISSING_DEPS)),)
 .NOTINTERMEDIATE:
 .PHONY: clean-tmp clean-pdf
 
-# The main target that gets made by default
+# The main target that gets made by default.
+# This is the final step of the build process where we add the outline to the otherwise-ready PDF file.
 $(OUTPUT_NAME).pdf: $(TMP_DIR)/ocr.pdf outline.txt
 	pdftk $< update_info_utf8 outline.txt output '$@'
 
@@ -95,8 +96,15 @@ $(TMP_DIR)/%_unpaper.pbm: $(TMP_DIR)/%_magick.pbm
 $(TMP_DIR)/0001_unpaper.pbm: $(TMP_DIR)/0001_magick.pbm
 	unpaper --no-border-align $< $@
 
+# Here we combine all processed images into a single PDF file.
+#
+#  * We set the DPI depending on the scanned files and how we resized them during processing.
+#
+#  * We remove the PDF title metadata tag that ImageMagick sets to the file stub by default.
+#  Meaningful metadata can be handled separately at the last stage when the outline is generated.
+#
 $(TMP_DIR)/combined.pdf: $(PROCESSED_IMAGES)
-	magick $^ -define pdf:Title='$(OUTPUT_NAME_RAW)' -density 300 -verbose $@
+	magick $^ -define pdf:title='' -density 300 -verbose $@
 
 $(TMP_DIR)/ocr.pdf: $(TMP_DIR)/combined.pdf
 	ocrmypdf --optimize 3 --language=$(OCR_LANGUAGES) $< $@
