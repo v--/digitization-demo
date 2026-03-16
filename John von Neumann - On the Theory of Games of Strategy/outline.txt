@@ -1,0 +1,34 @@
+PageLabelBegin
+PageLabelNewIndex: 1
+PageLabelStart: 13
+PageLabelNumStyle: DecimalArabicNumerals
+
+BookmarkBegin
+BookmarkTitle: Introduction
+BookmarkLevel: 1
+BookmarkPageNumber: 1
+
+BookmarkBegin
+BookmarkTitle: §1. General simplifications
+BookmarkLevel: 1
+BookmarkPageNumber: 5
+
+BookmarkBegin
+BookmarkTitle: §2. The case n = 2
+BookmarkLevel: 1
+BookmarkPageNumber: 9
+
+BookmarkBegin
+BookmarkTitle: §3. Proof of the theorem "Max Min = Min Max"
+BookmarkLevel: 1
+BookmarkPageNumber: 14
+
+BookmarkBegin
+BookmarkTitle: §4. The case n = 3
+BookmarkLevel: 1
+BookmarkPageNumber: 19
+
+BookmarkBegin
+BookmarkTitle: §5. Preliminary remarks on games for n > 3
+BookmarkLevel: 1
+BookmarkPageNumber: 26
