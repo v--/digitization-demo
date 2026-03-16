@@ -68,13 +68,13 @@ $(TMP_DIR)/%_pre.pgm: $(SOURCE_PDF) | $(TMP_DIR)
 #
 #   * "-gravity ... -crop ..." crops the width. The "gravity" pulls the odd pages to the bottom left and the even pages to the top right.
 #
-#   * "-auto-level" is generally useful to scale the levels of gray before dithering.
+#   * "-auto-level" is generally useful to scale the levels of gray before quantization.
 #
 #   * "-brightness-contrast ..." is also often beneficial to manually adjust brightness and contrast
 #
 # Because of its .pbm extension, the result will be a monochrome image.
 # By default imagemagick uses unsophisticated thresholding, which works well for high-quality images at high resolution.
-# For finer control over dithering, especially for lower-quality images, we can use local thresholding (e.g. -lat 50x50-20%).
+# For finer control over quantization, especially for lower-quality images, we can use local thresholding (e.g. -lat 50x50-20%).
 # If the lighting is uniform, ordered dithering (-ordered-dither o2x2) can also be helpful.
 $(TMP_DIR)/%_magick.pbm: $(TMP_DIR)/%_pre.pgm
 	magick $< \
