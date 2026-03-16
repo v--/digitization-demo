@@ -87,14 +87,14 @@ $(TMP_DIR)/%_magick.pbm: $(TMP_DIR)/%_pre.pgm
 
 # Unpaper does wonders in page preparation
 $(TMP_DIR)/%_unpaper.pbm: $(TMP_DIR)/%_magick.pbm
-	unpaper $< $@
+	unpaper --overwrite $< $@
 
 # It is often helpful to specialize
 # For example, the first page has a large padding from the top.
 # unpaper tries to center the content of the page, which in this case is undesirable.
 # So --no-border-align makes sure the top padding is preserved.
 $(TMP_DIR)/0001_unpaper.pbm: $(TMP_DIR)/0001_magick.pbm
-	unpaper --no-border-align $< $@
+	unpaper --overwrite --no-border-align $< $@
 
 # Here we combine all processed images into a single PDF file.
 #
