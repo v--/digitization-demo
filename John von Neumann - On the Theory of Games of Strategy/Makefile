@@ -71,7 +71,9 @@ $(TMP_DIR)/%_pre.pgm: $(SOURCE_PDF) | $(TMP_DIR)
 #
 #   * "-auto-level" is generally useful to scale the levels of gray before quantization.
 #
-#   * "-brightness-contrast ..." is also often beneficial to manually adjust brightness and contrast
+#   * "-brightness-contrast ..." is also often beneficial to manually adjust brightness and contrast.
+#
+#   * "-clahe ..." (histogram equalization) can subsume the level and contrast adjustments when the lighting is non-uniform.
 #
 # Because of its .pbm extension, the result will be a monochrome image.
 # By default imagemagick uses unsophisticated thresholding, which works well for high-quality images at high resolution.
