@@ -2,10 +2,10 @@
 # It can process multiple images concurrently with `make --jobs=8`.
 #
 # Every book is different and has different processing requirements,
-# and it often makes sense copying this file and adapting it for an individual book.
-# Adapting usually involves modifying in non-trivial ways the targets for the individual pages.
+# and it often makes sense to copy this file and adapt it for an individual book.
+# Adapting usually involves modifying the targets for the individual pages in non-trivial ways.
 #
-# I do not like to put licenses on my code, so consider this Makefile Unlicensed (https://unlicense.org/).
+# I do not like to license my code, so consider this Makefile Unlicensed (https://unlicense.org/).
 
 # Configuration variables
 OCR_LANGUAGES := eng+grc # Math books and papers generally feature Latin and Greek letters (even if they are written in e.g. Cyrillic)
@@ -35,7 +35,7 @@ $(if $(MISSING_DEPS),$(error Missing executables: $(MISSING_DEPS)),)
 #
 # $(if $(MISSING_PAGES),$(error Missing pages: $(MISSING_PAGES)),)
 
-# Targets that not explicitly mentioned get implicitly marked as intermediate, and may get deleted.
+# Targets that not explicitly mentioned get implicitly marked as intermediate, and may get deleted by Make.
 # If the end result is not satisfying, we will need to regenerate all images again rather than only modify some of them.
 # .NOTINTERMEDIATE with no prerequisites causes all targets to be treated as not intermediate.
 # Once we are done, we can use `make clean-tmp` to remove the intermediate files.
@@ -64,10 +64,10 @@ $(TMP_DIR)/%_pre.pgm: $(SOURCE_PDF) | $(TMP_DIR)
 
 # ImageMagick is massively useful in general.
 #
-#   * "-resize ..." increases the size of the image so that the convention to monochrome produces better results.
+#   * "-resize ..." can be used to increase the size of the image so that the convention to monochrome produces better results.
 #     Here we specify the smaller dimension (width) and the larger dimension (height) scales according to the aspect ratio.
 #
-#   * "-gravity ... -crop ..." crops the width. The "gravity" pulls the odd pages to the bottom left and the even pages to the top right.
+#   * "-gravity ... -crop ..." crops the width. The "gravity" parameter can be used to pull the odd pages to the bottom left and the even pages to the top right.
 #
 #   * "-auto-level" is generally useful to scale the levels of gray before quantization.
 #
@@ -75,8 +75,8 @@ $(TMP_DIR)/%_pre.pgm: $(SOURCE_PDF) | $(TMP_DIR)
 #
 #   * "-clahe ..." (histogram equalization) can subsume the level and contrast adjustments when the lighting is non-uniform.
 #
-# Because of its .pbm extension, the result will be a monochrome image.
-# By default imagemagick uses unsophisticated thresholding, which works well for high-quality images at high resolution.
+# Because of its .pbm extension, the target will be a monochrome image.
+# By default, ImageMagick uses unsophisticated thresholding, which works well for high-quality images at high resolution.
 # For finer control over quantization, especially for lower-quality images, we can use local thresholding (e.g. -lat 50x50-20%).
 # If the lighting is uniform, ordered dithering (-ordered-dither o2x2) can also be helpful.
 $(TMP_DIR)/%_magick.pbm: $(TMP_DIR)/%_pre.pgm
@@ -103,7 +103,7 @@ $(TMP_DIR)/0001_unpaper.pbm: $(TMP_DIR)/0001_magick.pbm
 #  * We set the DPI depending on the scanned files and how we resized them during processing.
 #
 #  * We remove the PDF title metadata tag that ImageMagick sets to the file stub by default.
-#  Meaningful metadata can be handled separately at the last stage when the outline is generated.
+#    Meaningful metadata can be handled separately at the last stage when the outline is generated.
 #
 $(TMP_DIR)/combined.pdf: $(PROCESSED_IMAGES)
 	magick $^ -define pdf:title='' -density 300 -verbose $@
